@@ -55,12 +55,22 @@ export default function Clients({ clients }: { clients: Client[] }) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-semibold">Clients</h1>
-                    <Link href={route('clients.create')}>
-                        <Button>
+                    <div>
+                        <Button 
+                            variant="print"
+                            onClick={() => window.open(route('clients.pdf'), '_blank')}
+                            className="mr-2"
+                        >
                             <PlusIcon className="mr-2 h-4 w-4" />
-                            New Client
+                            Print Clients
                         </Button>
-                    </Link>
+                        <Link href={route('clients.create')}>
+                            <Button>
+                                <PlusIcon className="mr-2 h-4 w-4" />
+                                New Client
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border">
