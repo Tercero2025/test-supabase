@@ -29,7 +29,7 @@ interface Client {
 }
 
 export default function EditClient({ client }: { client: Client }) {
-    const { data, setData, patch, processing, errors } = useForm({
+    const { data, setData, put, processing, errors } = useForm({
         name: client.name,
         fullname: client.fullname,
         cuit: client.cuit,
@@ -41,7 +41,7 @@ export default function EditClient({ client }: { client: Client }) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        patch(route('clients.update', client.id));
+        put(route('clients.update', client.id));
     }
 
     return (
