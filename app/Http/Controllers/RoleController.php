@@ -4,45 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        return Role::with('permissions')->get();
+        $roles = Role::all();  // Ya no necesitamos cargar los permisos aquí
+        return Inertia::render('roles/index', [
+            'roles' => $roles
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('roles/create');
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|unique:roles',
-            'description' => 'nullable',
-            'permissions' => 'required|array'
+            'description' => 'nullable'
         ]);
 
-        $role = Role::create($validated);
-        $role->permissions()->sync($validated['permissions']);
+        Role::create($validated);
+        return redirect()->route('roles.index');
+    }
 
-        return response()->json($role, 201);
+    public function edit(Role $role)
+    {
+        return Inertia::render('roles/edit', [
+            'role' => $role
+        ]);
     }
 
     public function update(Request $request, Role $role)
     {
         $validated = $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
-            'description' => 'nullable',
-            'permissions' => 'required|array'
+            'description' => 'nullable'
         ]);
 
         $role->update($validated);
-        $role->permissions()->sync($validated['permissions']);
-
-        return response()->json($role);
+        return redirect()->route('roles.index');
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-        return response()->json(null, 204);
+        return response()->noContent();
     }
 }

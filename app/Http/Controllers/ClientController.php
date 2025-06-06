@@ -19,6 +19,11 @@ class ClientController extends Controller
         ]);
     }
 
+    public function indexmobile()
+    {
+        return Clients::all();
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -44,7 +49,7 @@ class ClientController extends Controller
 
         $validated['user_id'] = Auth::id();
         Clients::create($validated);
-        
+
         return redirect()->route('clients.index')
             ->with('message', 'Client created successfully.');
     }
@@ -85,7 +90,7 @@ class ClientController extends Controller
         ]);
 
         $client->update($validated);
-        
+
         return redirect()->route('clients.index')
             ->with('message', 'Client updated successfully.');
     }
@@ -96,7 +101,7 @@ class ClientController extends Controller
     public function destroy(Clients $client)
     {
         $client->delete();
-        
+
         return redirect()->route('clients.index')
             ->with('message', 'Client deleted successfully.');
     }

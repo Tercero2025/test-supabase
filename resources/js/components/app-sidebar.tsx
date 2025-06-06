@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem, type InertiaPageProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Shield } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Shield, Users, Lock } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -24,11 +24,16 @@ const adminNavItems: NavItem[] = [
     {
         title: 'Roles',
         href: '/roles',
-        icon: Shield,
+        icon: Users,
     },
     {
         title: 'Permissions',
         href: '/permissions',
+        icon: Lock,
+    },
+    {
+        title: 'Roles Permissions',
+        href: '/roles-permissions',
         icon: Shield,
     },
 ];
